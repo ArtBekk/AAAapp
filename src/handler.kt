@@ -12,13 +12,10 @@ class Handler(args: Array<String>) {
                     "-de" -> de = args[args.indexOf(it) + 1]
                     "-vol" -> vol = args[args.indexOf(it) + 1]
                     "-h" -> helpNeeded = true
-
                 }
             }
         } catch (e: IndexOutOfBoundsException) {
         }
-
-
     }
 
     var login: String = ""
