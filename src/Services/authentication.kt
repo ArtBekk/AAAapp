@@ -5,16 +5,18 @@ import Handler
 import Users
 
 fun authenticate(handler: Handler): ExitCode {
-    if (handler.login=="")
-        return Ex
+    if (handler.login == "")
+        return ExitCode.INCORRECTLOGINFORMAT
 
     Users.forEach {
-        if (it.login == handler.login && it.password == hashSalt(handler.password)) {
-            println("Success")
-            return ExitCode.SUCCESS
+        if (it.login == handler.login) {
+            return if (it.password == hashSalt(handler.password))
+                ExitCode.SUCCESS
+            else
+                ExitCode.WRONGPASSWORD
         }
     }
-    return false
+    return ExitCode.UNKNOWNLOGIN
 }
 
 fun hashSalt(input: String): Int = (input + "someSalt").hashCode()
