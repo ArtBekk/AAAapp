@@ -1,6 +1,7 @@
 package models
 
 import Handler
+import models.Roles
 
 class User(val login: String, val password: Int,
            private val write: Array<Resource>?,
@@ -9,13 +10,13 @@ class User(val login: String, val password: Int,
 
     fun hasAccess(handler: Handler): Boolean {
         return when (handler.role) {
-            "WRITE" -> {
+            Roles.WRITE.rolesName -> {
                 write.contains(handler.res)
             }
-            "READ" -> {
+            Roles.READ.rolesName -> {
                 read.contains(handler.res)
             }
-            "EXECUTE" -> {
+            Roles.EXECUTE.rolesName -> {
                 execute.contains(handler.res)
             }
             else -> false
