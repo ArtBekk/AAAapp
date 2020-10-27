@@ -2,7 +2,7 @@ package Services
 
 import ExitCode
 import Handler
-import Users
+import domains.Users
 import models.Roles
 
 fun authorization(handler: Handler): ExitCode{

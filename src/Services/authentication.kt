@@ -2,7 +2,7 @@ package services
 
 import ExitCode
 import Handler
-import Users
+import domains.Users
 
 fun authenticate(handler: Handler): ExitCode {
     if (handler.login.contains(Regex("[^a-zA-Z0-9]")))
