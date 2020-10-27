@@ -5,7 +5,7 @@ import Handler
 import Users
 
 fun authenticate(handler: Handler): ExitCode {
-    if (handler.login == "")
+    if (handler.login.contains(Regex("[^a-zA-Z0-9]")))
         return ExitCode.INCORRECTLOGINFORMAT
 
     Users.forEach {
