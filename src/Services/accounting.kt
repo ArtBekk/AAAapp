@@ -1,4 +1,4 @@
-package Services
+package services
 
 import ExitCode
 import Handler
@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeParseException
 import java.util.*
 
-fun session(handler: Handler): ExitCode{
+fun accounting(handler: Handler): ExitCode{
 
     val fDate = SimpleDateFormat ("yyyy-MM-dd")
 
