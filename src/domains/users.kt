@@ -1,3 +1,5 @@
+package domains
+
 import models.Resource
 import models.User
 import services.hashSalt
