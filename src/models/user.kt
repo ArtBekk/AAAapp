@@ -1,6 +1,7 @@
 package models
 
-class User(val login: String, val password: Int,
+class User(val login: String,
+           val password: String,
            private val write: Array<Resource>?,
            private val read: Array<Resource>?,
            private val execute: Array<Resource>?) {
