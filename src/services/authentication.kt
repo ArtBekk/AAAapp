@@ -14,7 +14,7 @@ fun authenticate(handler: Handler): ExitCode {
         return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
-    if (handler.login!!.matches("[^a-zA-Z0-9]".toRegex()))
+    if (handler.login!!.matches(".+[^a-zA-Z0-9]".toRegex()))
         return ExitCode.INCORRECTLOGINFORMAT
     Users.forEach {
         if (it.login == handler.login) {
