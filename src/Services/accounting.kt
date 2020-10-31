@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeParseException
 import java.util.*
 
-fun accounting(handler: Handler): ExitCode{
+fun account(handler: Handler): ExitCode{
 
     val fDate = SimpleDateFormat ("yyyy-MM-dd")
 

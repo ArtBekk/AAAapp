@@ -5,7 +5,7 @@ import Handler
 import domains.Users
 import models.Roles
 
-fun authorization(handler: Handler): ExitCode{
+fun authorize(handler: Handler): ExitCode{
 
     if (handler.role == Roles.WRITE.rolesName ||
             handler.role == Roles.EXECUTE.rolesName ||
