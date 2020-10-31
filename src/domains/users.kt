@@ -10,6 +10,6 @@ val Users: Array<User> = arrayOf(
                 arrayOf(Resource("GG"))),
 
         User("AdamHiggs", "89cd4d1f29716d8262789a7444320538ee9b401b6384a9c92351046edbd9ebf5",
-                arrayOf(Resource("AA"), Resource("AD.BD"), Resource("AC.BAE")),
-                arrayOf(Resource("AV"), Resource("BB"), Resource("CD.E")),
-                arrayOf(Resource("GG"))))
+                arrayOf(Resource("AA"), Resource("AD.BD"), Resource("AC.NAJ")),
+                arrayOf(Resource("AH"), Resource("BB"), Resource("LR.E")),
+                arrayOf(Resource("ZB"))))
