@@ -1,23 +1,20 @@
 package models
 
-import Handler
-import models.Roles
-
 class User(val login: String, val password: Int,
            private val write: Array<Resource>?,
            private val read: Array<Resource>?,
            private val execute: Array<Resource>?) {
 
-    fun hasAccess(handler: Handler): Boolean {
-        return when (handler.role) {
+    fun hasAccess(input: String): Boolean {
+        return when (input) {
             Roles.WRITE.rolesName -> {
-                write.contains(handler.res)
+                write.contains(input)
             }
             Roles.READ.rolesName -> {
-                read.contains(handler.res)
+                read.contains(input)
             }
             Roles.EXECUTE.rolesName -> {
-                execute.contains(handler.res)
+                execute.contains(input)
             }
             else -> false
         }

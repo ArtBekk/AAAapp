@@ -3,13 +3,13 @@ import kotlinx.cli.ArgType
 
 class Handler(args: Array<String>) {
 
-    var login: String? = ""
-    var password: String? = ""
-    var res: String? = ""
-    var role: String? = ""
-    var ds: String? = ""
-    var de: String? = ""
-    var vol: String? = ""
+    var login: String? = null
+    var password: String? = null
+    var res: String? = null
+    var role: String? = null
+    var ds: String? = null
+    var de: String? = null
+    var vol: String? = null
 
 
     init {

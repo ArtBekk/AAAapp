@@ -1,5 +1,4 @@
 import services.*
-import kotlin.system.exitProcess
 
 class App() {
     fun run(args: Array<String>): ExitCode {
@@ -8,22 +7,22 @@ class App() {
         /*
         Checks login and password parameters and authenticates
          */
-        if (handler.login != "") {
+        result = if (handler.login != "") {
             if (handler.password != "")
-                result = services.authenticate(handler)
+                authenticate(handler)
             else
-                result = ExitCode.WRONGPASSWORD
-        } else result = ExitCode.UNKNOWNLOGIN
+                ExitCode.WRONGPASSWORD
+        } else ExitCode.UNKNOWNLOGIN
         /*
         Authorization
         */
         if (handler.res != "" && result == ExitCode.SUCCESS)
-            result = authorization(handler)
+            result = authorize(handler)
         /*
         Accounting
         */
         if (handler.vol != "" && result == ExitCode.SUCCESS)
-            result = accounting(handler)
+            result = account(handler)
         return result
     }
 }
