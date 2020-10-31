@@ -25,13 +25,13 @@ fun account(handler: Handler): ExitCode{
     }
 
     try {
-        dataSize = handler.vol.toInt()
+        dataSize = handler.vol!!.toInt()
     }
     catch (exc: NumberFormatException){
         return ExitCode.INCORRECTACTIVITY
     }
 
-    val newSession = Session(handler.login, dateS, dateE, dataSize)
+    val newSession = Session(handler.login!!, dateS, dateE, dataSize)
     sessions.add(newSession)
 
     return ExitCode.SUCCESS
