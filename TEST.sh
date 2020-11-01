@@ -8,16 +8,19 @@ function test() {
     expected_status=$3
 
     ./RUN.sh "$params"
-    echo "HEY"
     actual_status=$?
 
     if [ $actual_status -eq "$expected_status" ]
     then
     ((tests_passed++))
-    echo "$test_name passed"
+    tput setaf 2;
+    echo "$test_name passed with $actual_status (expected $expected_status)"
+    tput setaf 7;
     else
     ((tests_failed++))
-    echo "$test_name failed"
+    tput setaf 1;
+    echo "$test_name failed with $actual_status (expected $expected_status)"
+    tput setaf 7;
     fi
 
 }
@@ -54,7 +57,8 @@ test "T4.8" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -vol 20
 
 echo "Tests passed: $tests_passed"
 echo "Tests failed: $tests_failed"
-
+read
+$HELL
 if [ $tests_failed -eq 0 ]
 then
 exit 0
