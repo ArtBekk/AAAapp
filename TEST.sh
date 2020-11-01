@@ -1,5 +1,3 @@
-#!/bin/bash
-
 tests_passed=0
 tests_failed=0
 
@@ -8,18 +6,18 @@ function test() {
     test_name=$1
     params=$2
     expected_status=$3
-    # shellcheck disable=SC2034
 
     ./RUN.sh "$params"
+    echo "HEY"
     actual_status=$?
 
     if [ $actual_status -eq "$expected_status" ]
     then
     ((tests_passed++))
-    echo -e "\033[32m$test_name passed \033[0m"
+    echo "$test_name passed"
     else
     ((tests_failed++))
-    echo -e "\033[31m$test_name failed \033[0m"
+    echo "$test_name failed"
     fi
 
 }
@@ -33,7 +31,7 @@ test "T2.1" "-login ArtBekk -pass 3678"  0
 test "T2.2" "-pass 3678 -login ArtBekk" 0
 test "T2.3" "-login BekkArt -pass 3678"  3
 test "T2.4" "-login ArtBekk -pass delete"  4
-test "T2.5" "-login $BekkArt!! -pass 3678"  2
+test "T2.5" "-login #@BekkArt!! -pass 3678"  2
 test "T3.1" "-login AdamHiggs -pass 1234 -role WRITE -res AA"  0
 test "T3.2" "-login AdamHiggs -pass 1234 -role DELETE -res AA"  5
 test "T3.3" "-login AdamHiggs -pass 1234 -role WRITE -res CD"  6
@@ -53,7 +51,6 @@ test "T4.5" "-login ArtBekk -pass 3678 -role READ -res AV -ds -ds 2020-01-01 -de
 test "T4.6" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01" 0
 test "T4.7" "-login ArtBekk -pass 3678 -role READ -res AV  -de 2020-02-01 -vol 20"  7
 test "T4.8" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -vol 20"  7
-
 
 echo "Tests passed: $tests_passed"
 echo "Tests failed: $tests_failed"
