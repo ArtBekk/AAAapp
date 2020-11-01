@@ -19,16 +19,21 @@ fun account(handler: Handler): ExitCode{
     try{
         dateS = fDate.parse(handler.ds)
         dateE = fDate.parse(handler.de)
+
+        println(dateS)
+        println(dateE)
     }
     catch (exc: DateTimeParseException){
         return ExitCode.INCORRECTACTIVITY
     }
 
-    try {
+    return try {
         dataSize = handler.vol!!.toInt()
-    }
-    catch (exc: NumberFormatException){
-        return ExitCode.INCORRECTACTIVITY
+
+        if(dataSize >= 0) ExitCode.SUCCESS
+        else ExitCode.INCORRECTACTIVITY
+    } catch (exc: NumberFormatException){
+        ExitCode.INCORRECTACTIVITY
     }
 
     val newSession = Session(handler.login!!, dateS, dateE, dataSize)
