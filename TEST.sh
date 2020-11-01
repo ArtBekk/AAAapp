@@ -50,7 +50,7 @@ test "T4.1" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 202
 test "T4.2" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01 -vol 1001"  7
 test "T4.3" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01 -vol -20"  7
 test "T4.4" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2aa0-01-01 -de B020-d2-01 -vol 20"  7
-test "T4.5" "-login ArtBekk -pass 3678 -role READ -res AV -ds -ds 2020-01-01 -de 2020-02-01 -vol agws"  7
+test "T4.5" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01 -vol agws"  7
 test "T4.6" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01" 0
 test "T4.7" "-login ArtBekk -pass 3678 -role READ -res AV  -de 2020-02-01 -vol 20"  7
 test "T4.8" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -vol 20"  7
