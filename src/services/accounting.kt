@@ -19,9 +19,6 @@ fun account(handler: Handler): ExitCode{
     try{
         dateS = fDate.parse(handler.ds)
         dateE = fDate.parse(handler.de)
-
-        println(dateS)
-        println(dateE)
     }
     catch (exc: DateTimeParseException){
         return ExitCode.INCORRECTACTIVITY
