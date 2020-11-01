@@ -16,7 +16,7 @@ fun account(handler: Handler): ExitCode{
        val dateS = fDate.parse(handler.ds)
         val dateE = fDate.parse(handler.de)
 
-        dataSize = handler.vol!!
+        dataSize = handler.vol!!.toInt()
 
         result = if(dataSize in 0..1000) {
             val newSession = Session(handler.login!!, dateS, dateE, dataSize)
