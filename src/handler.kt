@@ -2,7 +2,7 @@ import kotlinx.cli.*
 
 class Handler(args: Array<String>) {
 
-    private val parser = ArgParser("handler")
+    private val parser = ArgParser("AAAapp")
 
     var login: String? by parser.option(ArgType.String, shortName = "login",
             description = "User login transfer")
