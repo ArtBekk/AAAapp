@@ -16,7 +16,7 @@ class Handler(args: Array<String>) {
             description = "User start date")
     var de: String? by parser.option(ArgType.String, shortName = "de",
             description = "User end date")
-    var vol: String? by parser.option(ArgType.String, shortName = "vol",
+    var vol: Int? by parser.option(ArgType.Int, shortName = "vol",
             description = "Entering the data size")
 
     init {

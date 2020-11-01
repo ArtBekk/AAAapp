@@ -25,7 +25,7 @@ fun account(handler: Handler): ExitCode{
     }
 
     return try {
-        dataSize = handler.vol!!.toInt()
+        dataSize = handler.vol!!
 
         if(dataSize >= 0) ExitCode.SUCCESS
         else ExitCode.INCORRECTACTIVITY
