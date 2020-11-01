@@ -6,16 +6,16 @@ class User(val login: String,
            private val read: Array<Resource>?,
            private val execute: Array<Resource>?) {
 
-    fun hasAccess(input: String): Boolean {
-        return when (input) {
+    fun hasAccess(role: String, res: String): Boolean {
+        return when (role) {
             Roles.WRITE.rolesName -> {
-                write.contains(input)
+                write.contains(res)
             }
             Roles.READ.rolesName -> {
-                read.contains(input)
+                read.contains(res)
             }
             Roles.EXECUTE.rolesName -> {
-                execute.contains(input)
+                execute.contains(res)
             }
             else -> false
         }
@@ -23,7 +23,8 @@ class User(val login: String,
 
     fun Array<Resource>?.contains(input: String): Boolean {
         this?.forEach { x ->
-            return x.contains(input)
+            if (x.contains(input))
+                return true
         }
         return false
     }
