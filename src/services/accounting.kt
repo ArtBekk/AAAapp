@@ -5,36 +5,28 @@ import Handler
 import domains.sessions
 import models.Session
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeParseException
-import java.util.*
 
 fun account(handler: Handler): ExitCode{
 
     val fDate = SimpleDateFormat ("yyyy-MM-dd")
-
-    var dateS: Date
-    var dateE: Date
-    var dataSize: Int
+    val dataSize: Int?
+    var result: ExitCode
 
     try{
-        dateS = fDate.parse(handler.ds)
-        dateE = fDate.parse(handler.de)
-    }
-    catch (exc: DateTimeParseException){
-        return ExitCode.INCORRECTACTIVITY
-    }
+       val dateS = fDate.parse(handler.ds)
+        val dateE = fDate.parse(handler.de)
 
-    return try {
         dataSize = handler.vol!!
 
-        if(dataSize >= 0) ExitCode.SUCCESS
+        result = if(dataSize in 0..1000) {
+            val newSession = Session(handler.login!!, dateS, dateE, dataSize)
+            sessions.add(newSession)
+            ExitCode.SUCCESS
+        }
         else ExitCode.INCORRECTACTIVITY
-    } catch (exc: NumberFormatException){
-        ExitCode.INCORRECTACTIVITY
     }
-
-    val newSession = Session(handler.login!!, dateS, dateE, dataSize)
-    sessions.add(newSession)
-
-    return ExitCode.SUCCESS
+    catch ( exc: Exception){
+        result = ExitCode.INCORRECTACTIVITY
+    }
+    return result
 }
