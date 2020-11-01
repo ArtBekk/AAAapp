@@ -91,3 +91,31 @@
         11.4.2 Аккаунтинг с несоблюдением формата даты (exitCode 7)
         
         11.4.3 Успешный аккаунтинг (exitCode 0)
+12. Тестовые сценарии
+
+    12.1 Тестовые данные
+    
+    **Аккаунты:**
+        
+    Пользователь(Логин) |        Пароль
+    --------------------|----------------------
+      ArtBekk           | 3678
+     AdamHiggs          | 1234
+       user             | 0000
+       
+    **Доступ:**
+
+    Пользователь(Логин) |     Роль      | Доступные ресурсы
+    --------------------|---------------|------------------
+      ArtBekk           | WRITE         | `AA` `AD.BD` `AC.BAE`
+      ArtBekk           | READ          | `AV` `BB` `CD.E`
+      ArtBekk           | EXECUTE       | `GG.WP`
+     AdamHiggs          | WRITE         | `AA` `AD.BD` `AC.NAJ`
+     AdamHiggs          | READ          | `AH` `BB` `LR.E`
+     AdamHiggs          | EXECUTE       | `ZB`
+       user             | WRITE         | `No access`
+       user             | READ          | `AC` `B.EX.DFADS` `CD.E`
+       user             | EXECUTE       | `GL.H`
+
+ 
+ 
