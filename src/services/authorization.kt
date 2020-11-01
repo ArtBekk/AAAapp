@@ -13,7 +13,7 @@ fun authorize(handler: Handler): ExitCode {
 
         Users.forEach {
             if (it.login == handler.login)
-                return if (it.hasAccess(handler.res!!)) {
+                return if (it.hasAccess(handler.role!!, handler.res!!)) {
                     ExitCode.SUCCESS
                 } else ExitCode.NOACCESS
         }
