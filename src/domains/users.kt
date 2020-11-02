@@ -15,6 +15,6 @@ val Users: Array<User> = arrayOf(
                 arrayOf(Resource("ZB"))),
 
         User("user", "de5d44500b6d1649d10165845e2df21ba323aa94e9f157ca970a03d87c100b48",
-                null,
+                arrayOf(),
                 arrayOf(Resource("AC"), Resource("B.EX.DFADS"), Resource("CD.E")),
                 arrayOf(Resource("GL.HF"))))
