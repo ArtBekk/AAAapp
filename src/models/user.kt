@@ -12,7 +12,7 @@ class User(val login: String,
             Roles.WRITE -> {
                 write.contains(res)
             }
-            Roles.READ-> {
+            Roles.READ -> {
                 read.contains(res)
             }
             Roles.EXECUTE -> {
@@ -22,10 +22,13 @@ class User(val login: String,
         }
     }
 
+
     fun Array<Resource>.contains(input: String): Boolean {
-        this.forEach { x ->
-            if (x.contains(input))
-                return true
+        if (this.any()) {
+            this.forEach { x ->
+                if (x.contains(input))
+                    return true
+            }
         }
         return false
     }
