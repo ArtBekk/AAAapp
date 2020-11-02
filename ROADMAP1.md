@@ -91,3 +91,67 @@
         11.4.2 Аккаунтинг с несоблюдением формата даты (exitCode 7)
         
         11.4.3 Успешный аккаунтинг (exitCode 0)
+12. Тестовые сценарии
+
+    12.1 Тестовые данные
+    
+    **Аккаунты:**
+        
+    Пользователь(Логин) |        Пароль
+    --------------------|----------------------
+      ArtBekk           | 3678
+     AdamHiggs          | 1234
+       user             | 0000
+       
+    **Доступ:**
+
+    Пользователь(Логин) |     Роль      | Доступные ресурсы
+    --------------------|---------------|------------------
+      ArtBekk           | WRITE         | `AA` `AD.BD` `AC.BAE`
+      ArtBekk           | READ          | `AV` `BB` `CD.E`
+      ArtBekk           | EXECUTE       | `GG.WP`
+     AdamHiggs          | WRITE         | `AA` `AD.BD` `AC.NAJ`
+     AdamHiggs          | READ          | `AH` `BB` `LR.E`
+     AdamHiggs          | EXECUTE       | `ZB`
+       user             | WRITE         | `No access`
+       user             | READ          | `AC` `B.EX.DFADS` `CD.E`
+       user             | EXECUTE       | `GL.H`
+
+    12.2 Тестовые сценарии
+    
+        12.2.1 Вывод справки
+         T1.1 "" (0 - выводится справка)
+         T1.2 "-h" (0 - выводится справка)
+         T1.3 "some trash" (0 - выводится справка)
+         T1.4 "-unknown" (0 - выводится справка)
+         T1.5 "-unknown unknown" (0 - выводится справка)
+
+        12.2.2 Аутентификация
+        T2.1 "-login ArtBekk -pass 3678" (0 - успешно)
+        T2.2 "-pass 3678 -login ArtBekk" (0 - успешно)
+        T2.3 "-login BekkArt -pass 3678" (3 - неизвестный логин)
+        T2.4 "-login ArtBekk -pass delete" (4 - неверный пароль)
+        T2.5 "-login #@BekkArt!! -pass 3678" (2 - неверный логина)
+
+        12.2.3 Авторизация
+        T3.1 "-login AdamHiggs -pass 1234 -role WRITE -res AA"  (0 - успешная авторизация)
+        T3.2 "-login AdamHiggs -pass 1234 -role DELETE -res AA" (5 - неизвестная роль)
+        T3.3 "-login AdamHiggs -pass 1234 -role WRITE -res CD"  (6 - нет доступа)
+        T3.4 "-login ArtBekk -pass 3678 -role READ -res CD.E"  (0 - успешная авторизация)
+        T3.5 "-login ArtBekk -pass 3678 -role WRITE -res AC.BAE.be"  (0 - успешная авторизация)
+        T3.6 "-login ArtBekk -pass delete -role DELETE -res A"  (4 - неверный пароль)
+        T3.7 "-login HiggsAdam -pass 1234 -role DELETE -res A"  (3 - неизвестный логин)
+        T3.8 "-login AdamHiggs -pass 1234 -role EXECUTE -res ZB.AA.b"  (0 - успешная авторизация)
+        T3.9 "-login ArtBekk -pass 3678 -role READ"  (0 - успешная авторизация)
+        T3.10 "-login ArtBekk -pass 3678 -role EXECUTE -res A"  (6 - нет доступа)
+        T3.11 "-login AdamHiggs -pass 1234 -role WRITE -res ZB.A.a"  (6 - нет доступа)
+
+        12.2.4 Аккаунтинг
+        T4.1 "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01 -vol 20"  (0 - успешно)
+        T4.2 "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01 -vol 1001"  (7 -некорректная активность)
+        T4.3 "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01 -vol -20"  (7 -некорректная активность)
+        T4.4 "-login ArtBekk -pass 3678 -role READ -res AV -ds 2aa0-01-01 -de B020-d2-01 -vol 20"  (7 -некорректная активность)
+        T4.5 "-login ArtBekk -pass 3678 -role READ -res AV -ds -ds 2020-01-01 -de 2020-02-01 -vol agws"  (7 -некорректная активность)
+        T4.6 "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -de 2020-02-01" (0 - успешно)
+        T4.7 "-login ArtBekk -pass 3678 -role READ -res AV  -de 2020-02-01 -vol 20"  `(7 -некорректная активность)`
+        T4.8 "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -vol 20"  `(7 -некорректная активность)`

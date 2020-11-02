@@ -11,7 +11,7 @@ class App() {
             result = authenticate(handler)
             if (handler.res != null && handler.role != null && result == ExitCode.SUCCESS) {
                 result = authorize(handler)
-                if (handler.vol != null && result == ExitCode.SUCCESS)
+                if (handler.ds != null && handler.de != null && handler.vol != null && result == ExitCode.SUCCESS)
                     result = account(handler)
             }
         }
