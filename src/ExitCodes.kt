@@ -8,7 +8,3 @@ enum class ExitCode(val value: Int) {
     NOACCESS(6),
     INCORRECTACTIVITY(7)
 }
-
-fun main(){
-    println(ExitCode.SUCCESS.value)
-}
