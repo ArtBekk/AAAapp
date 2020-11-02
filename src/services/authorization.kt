@@ -9,8 +9,6 @@ fun authorize(handler: Handler): ExitCode {
 
     try {
         @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
-        println(Roles.valueOf(handler.role!!))
-
         val userRole = Roles.valueOf(handler.role!!)
             Users.forEach {
                 if (it.login == handler.login)
