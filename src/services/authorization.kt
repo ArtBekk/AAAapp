@@ -9,14 +9,16 @@ fun authorize(handler: Handler): ExitCode {
 
     try {
         @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
-        if (Roles.values().contains(handler.role)) {
+        println(Roles.valueOf(handler.role!!))
+
+        val userRole = Roles.valueOf(handler.role!!)
             Users.forEach {
                 if (it.login == handler.login)
-                    return if (it.hasAccess(handler.role!!, handler.res!!)) {
+                    return if (it.hasAccess(userRole, handler.res!!)) {
                         ExitCode.SUCCESS
                     } else ExitCode.NOACCESS
             }
-        } else return ExitCode.UNKNOWNROLE
+
     } catch (exp: IllegalArgumentException) {
         return ExitCode.UNKNOWNROLE
     }
