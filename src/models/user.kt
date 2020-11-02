@@ -18,19 +18,11 @@ class User(val login: String,
             Roles.EXECUTE -> {
                 execute.contains(res)
             }
-            else -> false
         }
     }
 
-
     fun Array<Resource>.contains(input: String): Boolean {
-        if (this.any()) {
-            this.forEach { x ->
-                if (x.contains(input))
-                    return true
-            }
-        }
-        return false
+        return this.any{ it.contains(input) }
     }
 
 }
