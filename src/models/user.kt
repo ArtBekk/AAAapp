@@ -6,15 +6,16 @@ class User(val login: String,
            private val read: Array<Resource>?,
            private val execute: Array<Resource>?) {
 
-    fun hasAccess(role: String, res: String): Boolean {
+    fun hasAccess(role: Roles, res: String): Boolean {
+
         return when (role) {
-            Roles.WRITE.rolesName -> {
+            Roles.WRITE -> {
                 write.contains(res)
             }
-            Roles.READ.rolesName -> {
+            Roles.READ-> {
                 read.contains(res)
             }
-            Roles.EXECUTE.rolesName -> {
+            Roles.EXECUTE -> {
                 execute.contains(res)
             }
             else -> false
