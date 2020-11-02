@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 fun account(handler: Handler): ExitCode{
 
     val fDate = SimpleDateFormat ("yyyy-MM-dd")
-    val dataSize: Int?
+    val dataSize: Int
     var result: ExitCode
 
     try{
