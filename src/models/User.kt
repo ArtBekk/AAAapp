@@ -2,9 +2,9 @@ package models
 
 class User(val login: String,
            val password: String,
-           private val write: Array<Resource>,
-           private val read: Array<Resource>,
-           private val execute: Array<Resource>) {
+           private val write: List<Resource>,
+           private val read: List<Resource>,
+           private val execute: List<Resource>) {
 
     fun hasAccess(role: Roles, res: String): Boolean {
 
@@ -21,8 +21,8 @@ class User(val login: String,
         }
     }
 
-    fun Array<Resource>.contains(input: String): Boolean {
-        return this.any{ it.contains(input) }
+    fun List<Resource>.contains(input: String): Boolean {
+        return this.any { it.contains(input) }
     }
 
 }
