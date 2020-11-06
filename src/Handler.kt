@@ -20,6 +20,10 @@ class Handler(args: Array<String>) {
             description = "Entering the data size")
 
     init {
-        parser.parse(args)
+        try {
+            parser.parse(args)
+        } catch (e: java.lang.IllegalStateException) {
+            Handler(arrayOf("-h"))
+        }
     }
 }
