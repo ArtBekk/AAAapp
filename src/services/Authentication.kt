@@ -15,13 +15,13 @@ fun authenticate(handler: Handler): ExitCode {
     }
 
     if (handler.login!!.matches(".+[^a-zA-Z0-9]".toRegex()))
-        return ExitCode.INCORRECTLOGINFORMAT
+        return ExitCode.IncorrectLoginFormat
 
-    if (Users.any { it.login == handler.login!! }){
+    if (Users.any { it.login == handler.login!! }) {
         return if (Users.any { it.password == hash(hash(handler.password!!) + "someSalt") })
-            ExitCode.SUCCESS
+            ExitCode.Success
         else
-            ExitCode.WRONGPASSWORD
+            ExitCode.WrongPassword
     }
-    return ExitCode.UNKNOWNLOGIN
+    return ExitCode.UnknownLogin
 }
