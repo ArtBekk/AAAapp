@@ -22,8 +22,7 @@ class Handler(args: Array<String>) {
     init {
         try {
             parser.parse(args)
-        }
-        catch(exp: Exception){
+        } catch (exp: Exception) {
             Handler(arrayOf("-h"))
         }
     }
