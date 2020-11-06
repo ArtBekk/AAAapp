@@ -56,8 +56,7 @@ test "T4.8" "-login ArtBekk -pass 3678 -role READ -res AV -ds 2020-01-01 -vol 20
 
 echo "Tests passed: $tests_passed"
 echo "Tests failed: $tests_failed"
-read
-$HELL
+
 if [ $tests_failed -eq 0 ]; then
   exit 0
 else
