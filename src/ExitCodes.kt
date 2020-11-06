@@ -1,6 +1,6 @@
 enum class ExitCode(val value: Int) {
     Success(0),
-    PrintHelp(1),
+    PrintHelp(1),//redundant
     IncorrectLoginFormat(2),
     UnknownLogin(3),
     WrongPassword(4),
