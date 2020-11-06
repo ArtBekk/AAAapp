@@ -8,11 +8,9 @@ class Resource(input: String) {
         var result = true
         val splitInput = input.split('.')
         for (i in name.indices) {
-            try {
+            if (i < splitInput.size) {
                 if (splitInput[i] != name[i]) result = false
-            } catch (e: IndexOutOfBoundsException) {
-                result = false
-            }
+            } else break
         }
         return result
     }
