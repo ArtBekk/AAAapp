@@ -6,27 +6,24 @@ import domains.sessions
 import models.Session
 import java.text.SimpleDateFormat
 
-fun account(handler: Handler): ExitCode{
+fun account(handler: Handler): ExitCode {
 
-    val fDate = SimpleDateFormat ("yyyy-MM-dd")
+    val fDate = SimpleDateFormat("yyyy-MM-dd")
     val dataSize: Int
     var result: ExitCode
 
-    try{
-       val dateS = fDate.parse(handler.ds)
+    try {
+        val dateS = fDate.parse(handler.ds)
         val dateE = fDate.parse(handler.de)
 
         dataSize = handler.vol!!.toInt()
 
-        result = if(dataSize in 0..1000) {
-            val newSession = Session(handler.login!!, dateS, dateE, dataSize)
-            sessions.add(newSession)
-            ExitCode.SUCCESS
-        }
-        else ExitCode.INCORRECTACTIVITY
-    }
-    catch ( exc: Exception){
-        result = ExitCode.INCORRECTACTIVITY
+        result = if (dataSize in 0..1000) {
+            sessions.add(Session(user = handler.login!!, res = handler.res!!, role = handler.role!!, dateS, dateE, dataSize))
+            ExitCode.Success
+        } else ExitCode.IncorrectActivity
+    } catch (exc: Exception) {
+        result = ExitCode.IncorrectActivity
     }
     return result
 }
