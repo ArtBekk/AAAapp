@@ -3,10 +3,7 @@ import services.*
 class App() {
     fun run(args: Array<String>): ExitCode {
         var result: ExitCode = ExitCode.Success
-        val handler: Handler = if (args.isNullOrEmpty())
-            Handler(arrayOf("-h"))
-        else
-            Handler(args)
+        val handler = Handler(args)
         if (handler.login != null && handler.password != null)
             result = authenticate(handler)
         if (handler.res != null && handler.role != null && result == ExitCode.Success)
