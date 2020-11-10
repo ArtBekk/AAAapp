@@ -1,7 +1,8 @@
 package models
 
 class User(val login: String,
-           val password: String,
+           val hash: String,
+           val salt: String,
            private val write: List<Resource>,
            private val read: List<Resource>,
            private val execute: List<Resource>) {
