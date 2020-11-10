@@ -1,7 +1,7 @@
 package models
 
-enum class Roles(val rolesName: String) {
-    READ("READ"),
-    WRITE("WRITE"),
-    EXECUTE("EXECUTE")
+enum class Roles() {
+    READ,
+    WRITE,
+    EXECUTE
 }
