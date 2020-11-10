@@ -18,7 +18,7 @@ fun authenticate(handler: Handler): ExitCode {
         return ExitCode.IncorrectLoginFormat
 
     if (Users.any { it.login == handler.login!! }) {
-        return if (Users.any { it.password == hash(hash(handler.password!!) + "someSalt") })
+        return if (Users.any { it.hash == hash(hash(handler.password!!) + it.salt) })
             ExitCode.Success
         else
             ExitCode.WrongPassword
