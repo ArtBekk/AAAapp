@@ -1,4 +1,5 @@
 import kotlinx.cli.*
+import models.Roles
 
 class Handler(args: Array<String>) {
 
