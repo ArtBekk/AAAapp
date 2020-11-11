@@ -20,6 +20,10 @@ class Handler(args: Array<String>) {
     var vol: String? by parser.option(ArgType.String, shortName = "vol",
             description = "Entering the data size")
 
+    fun authenticationNeeded(): Boolean = login != null && password != null
+    fun authorizationNeeded(): Boolean = authenticationNeeded() && res != null && role != null
+    fun accountingNeeded(): Boolean = authorizationNeeded() && ds != null && de != null && vol != null
+
     init {
         try {
             parser.parse(args)

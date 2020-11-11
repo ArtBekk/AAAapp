@@ -8,16 +8,12 @@ class App(args: Array<String>) {
 
     private var result: ExitCode = ExitCode.Success
 
-    private fun authenticationNeeded(): Boolean = handler.login != null && handler.password != null
-    private fun authorizationNeeded(): Boolean = authenticationNeeded() && handler.res != null && handler.role != null && result == ExitCode.Success
-    private fun accountingNeeded(): Boolean = authorizationNeeded() && handler.ds != null && handler.de != null && handler.vol != null && result == ExitCode.Success
-
     fun run(): Int {
-        if (authenticationNeeded())
+        if (handler.authenticationNeeded())
             result = authenticate(handler)
-        if (authorizationNeeded())
+        if (handler.authorizationNeeded() && result == ExitCode.Success)
             result = authorize(handler)
-        if (accountingNeeded())
+        if (handler.accountingNeeded() && result == ExitCode.Success)
             result = account(handler)
         return result.value
     }
