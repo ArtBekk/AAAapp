@@ -5,9 +5,9 @@
 
 **Планы разработки:**
 
-- [Roadmap1](https://github.com/ArtBekk/AAAapp/blob/master/ROADMAP1.md)
+- [Roadmap1](ROADMAP1.md)
 
-- [Roadmap2](https://github.com/ArtBekk/AAAapp/blob/master/ROADMAP2.md)
+- [Roadmap2](ROADMAP2.md)
 
 
 **Описание проекта:**
