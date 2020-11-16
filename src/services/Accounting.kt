@@ -20,7 +20,7 @@ fun account(handler: Handler): ExitCode {
         dataSize = handler.vol!!.toInt()
 
         result = if (dataSize in 0..1000) {
-            sessions.add(Session(user = handler.login!!, res = handler.res!!, role = Roles.valueOf(handler.role!!), dateS, dateE, dataSize))
+            sessions.add(Session(handler.login!!, res = handler.res!!, role = Roles.valueOf(handler.role!!), dateStart = dateS, dateEnd = dateE, dataSize = dataSize))
             ExitCode.Success
         } else ExitCode.IncorrectActivity
     } catch (exc: Exception) {
