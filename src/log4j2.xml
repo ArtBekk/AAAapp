@@ -6,11 +6,13 @@
 
     <Appenders>
         <Appender type="Console" name="STDOUT">
-            <Layout type="PatternLayout" pattern="%m MDC%X%n"/>
-        </Appender>
+            <Layout type="PatternLayout">
+                <Pattern>%d %C [%t] %m%n</Pattern>
+            </Layout>>
+        </Appender>>
         <Appender type="File" name="File" fileName="aaa.log">
             <Layout type="PatternLayout">
-                <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+                <Pattern>%d %C [%t] %m%n</Pattern>
             </Layout>
         </Appender>
     </Appenders>
