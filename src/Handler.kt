@@ -30,6 +30,6 @@ class Handler(args: Array<String>) {
         } catch (e: java.lang.IllegalStateException) {
             Handler(arrayOf("-h"))
         }
-        logger.info("Parsed arguments successfuly")
+        logger.info("Parsed arguments successfully")
     }
 }
