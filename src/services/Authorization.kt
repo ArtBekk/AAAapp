@@ -11,7 +11,7 @@ fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
     if (!Roles.values().toString().contains(handler.role!!))
         return ExitCode.UnknownRole
 
-    val rights: List<Access> = dal.getUsersAccessInfo(handler.login!!)
+    val rights: List<Access> = dal.getUsersAccessInfo(handler)
 
     return if (rights.isResSubsidiary(handler.res!!))
         ExitCode.Success

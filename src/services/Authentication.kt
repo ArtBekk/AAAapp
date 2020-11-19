@@ -24,8 +24,8 @@ fun authenticate(handler: Handler, dal: DataAccessLayer): ExitCode {
 
     logger.info("Login format is correct.")
 
-    if (dal.userExists(handler.login!!)) {
-        val user = dal.getUser(handler.login!!)
+    if (dal.userExists(handler)) {
+        val user = dal.getUser(handler)
         return if (user.hash == hash(hash(handler.password!!) + user.salt))
             ExitCode.Success
         else

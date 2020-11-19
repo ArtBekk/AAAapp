@@ -20,7 +20,7 @@ fun account(handler: Handler, dal: DataAccessLayer): ExitCode {
         dataSize = handler.vol!!.toInt()
 
         result = if (dataSize in 0..1000) {
-            dal.addSession(handler.login!!, handler.res!!, Roles.valueOf(handler.role!!), dateS, dateE, dataSize)
+            dal.addSession(handler)
             ExitCode.Success
         } else ExitCode.IncorrectActivity
     } catch (exc: Exception) {
