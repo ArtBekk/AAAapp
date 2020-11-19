@@ -1,24 +1,24 @@
 package services
 
+import DataAccessLayer
 import ExitCode
 import Handler
-import domains.Users
+import models.Access
 import models.Roles
 
-fun authorize(handler: Handler): ExitCode {
+fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
 
-    try {
-        val userRole = Roles.valueOf(handler.role!!)
-        Users.forEach {
-            if (it.login == handler.login) {
-                return if (it.hasAccess(userRole, handler.res!!)) {
-                    ExitCode.Success
-                } else ExitCode.NoAccess
-            }
-        }
-
-    } catch (exp: IllegalArgumentException) {
+    if (!Roles.values().toString().contains(handler.role!!))
         return ExitCode.UnknownRole
-    }
-    return ExitCode.Success
+
+    val rights: List<Access> = dal.getUsersAccessInfo(handler.login!!)
+
+    return if (rights.isResSubsidiary(handler.res!!))
+        ExitCode.Success
+    else
+        ExitCode.NoAccess
+}
+
+fun List<Access>.isResSubsidiary(input: String): Boolean {
+    return this.any { it.isResSubsidiary(input) }
 }

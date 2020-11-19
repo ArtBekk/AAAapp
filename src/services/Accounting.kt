@@ -1,13 +1,13 @@
 package services
 
+import DataAccessLayer
 import ExitCode
 import Handler
-import domains.sessions
 import models.Roles
 import models.Session
 import java.text.SimpleDateFormat
 
-fun account(handler: Handler): ExitCode {
+fun account(handler: Handler, dal: DataAccessLayer): ExitCode {
 
     val fDate = SimpleDateFormat("yyyy-MM-dd")
     val dataSize: Int
@@ -20,7 +20,7 @@ fun account(handler: Handler): ExitCode {
         dataSize = handler.vol!!.toInt()
 
         result = if (dataSize in 0..1000) {
-            sessions.add(Session(handler.login!!, res = handler.res!!, role = Roles.valueOf(handler.role!!), dateStart = dateS, dateEnd = dateE, dataSize = dataSize))
+            dal.addSession(handler.login!!, handler.res!!, Roles.valueOf(handler.role!!), dateS, dateE, dataSize)
             ExitCode.Success
         } else ExitCode.IncorrectActivity
     } catch (exc: Exception) {
