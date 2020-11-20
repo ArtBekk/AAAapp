@@ -30,7 +30,7 @@ class DataAccessLayer {
         return User(handler.login!!, hash, salt)
     }
 
-    fun getUserAccess(handler: Handler): Boolean {
+    fun getUserAccessInfo(handler: Handler): Boolean {
         val con = cp.getConnection("sa", "sa")
         var hasAccess = false
         val searchRights = con.prepareStatement("SELECT login, Role, ResourceName " +
@@ -39,7 +39,7 @@ class DataAccessLayer {
         searchRights.setString(2, handler.res)
         searchRights.setString(3, handler.role)
         val result = searchRights.executeQuery()
-        if(result.next()) hasAccess = true
+        if (result.next()) hasAccess = true
         con.close()
         return hasAccess
     }
