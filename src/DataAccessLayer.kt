@@ -1,59 +1,54 @@
 import models.User
 import org.h2.jdbcx.JdbcConnectionPool
+import java.sql.Array
+import java.sql.Connection
 
-class DataAccessLayer {
-
-    private val cp = JdbcConnectionPool.create("jdbc:h2:~/test", "sa", "sa")
-
+class DataAccessLayer(private val connection: Connection) {
 
     fun userExists(handler: Handler): Boolean {
-        val con = cp.getConnection("sa", "sa")
         var userExists = false
-
-        val searchUser = con.prepareStatement("SELECT login FROM users Where login = ?")
+        val searchUser = connection.prepareStatement("SELECT* FROM users WHERE login = ?")
         searchUser.setString(1, handler.login)
-        if (searchUser.executeQuery().next()) userExists = true
-        con.close()
+        val queryResult = searchUser.executeQuery()
+        if (queryResult.next()) userExists = true
+        queryResult.close()
         return userExists
     }
 
     fun getUser(handler: Handler): User {
-        val con = cp.getConnection("sa", "sa")
-        val getUser = con.prepareStatement("SELECT hash, salt FROM users Where login = ?")
+        val getUser = connection.prepareStatement("SELECT hash, salt FROM users WHERE login = ?")
         getUser.setString(1, handler.login)
         val result = getUser.executeQuery()
         result.next()
         val hash = result.getString("hash")
         val salt = result.getString("salt")
-        con.close()
-
+        result.close()
         return User(handler.login!!, hash, salt)
     }
 
-    fun getUserAccessInfo(handler: Handler): Boolean {
-        val con = cp.getConnection("sa", "sa")
+    fun getUserAccessInfo(handler: Handler): MutableList<String> {
         var hasAccess = false
-        val searchRights = con.prepareStatement("SELECT login, Role, ResourceName " +
-                "FROM resources Where login = ? and Role = ?")
+        val searchRights = connection.prepareStatement("SELECT resource_name FROM resources WHERE login = ? AND role = ?")
         searchRights.setString(1, handler.login)
-        searchRights.setString(2, handler.res)
-        searchRights.setString(3, handler.role)
+        searchRights.setString(2, handler.role)
         val result = searchRights.executeQuery()
-        if (result.next()) hasAccess = true
-        con.close()
-        return hasAccess
+        val mutableList = mutableListOf<String>()
+        while (result.next())
+            mutableList.add(result.getString("resource_name"))
+        result.close()
+        return mutableList
     }
 
     fun addSession(handler: Handler) {
-        val con = cp.getConnection("sa", "sa")
-        val dataSession = con.prepareStatement("INSERT INTO sessions (login, role, resources," +
-                " dateStart, dateEnd, dataSize) VALUES (?, ?, ?, ?, ?, ?);")
+        val dataSession = connection.prepareStatement("INSERT INTO sessions (login, role, resources, date_start, date_end, data_size) VALUES (?, ?, ?, ?, ?, ?)")
         dataSession.setString(1, handler.login)
         dataSession.setString(2, handler.role)
         dataSession.setString(3, handler.res)
         dataSession.setString(4, handler.ds)
         dataSession.setString(5, handler.de)
         dataSession.setString(6, handler.vol)
-        con.close()
+        dataSession.close()
     }
+
+    fun closeConnection() = connection.close()
 }
