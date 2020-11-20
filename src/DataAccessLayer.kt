@@ -1,6 +1,4 @@
 import models.User
-import org.h2.jdbcx.JdbcConnectionPool
-import java.sql.Array
 import java.sql.Connection
 
 class DataAccessLayer(private val connection: Connection) {
