@@ -32,7 +32,6 @@ class DataAccessLayer(private val connection: Connection) {
     }
 
     fun getUserAccessInfo(handler: Handler): MutableList<String> {
-        var hasAccess = false
         logger.info("Preparing and sending an SQL query.")
         val searchRights = connection.prepareStatement("SELECT resource_name FROM resources WHERE login = ? AND role = ?")
         searchRights.setString(1, handler.login)
