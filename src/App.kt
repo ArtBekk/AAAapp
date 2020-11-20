@@ -1,9 +1,7 @@
 import org.flywaydb.core.Flyway
 import services.*
 import java.io.File
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.DriverManager.*
+import java.sql.*
 
 class App(args: Array<String>) {
 
@@ -12,17 +10,21 @@ class App(args: Array<String>) {
     else
         Handler(args)
 
-    private val dal: DataAccessLayer = DataAccessLayer(/*pass Connection here*/)
+    private var dal: DataAccessLayer = DataAccessLayer(connectToDB())
 
     private var result: ExitCode = ExitCode.Success
 
-    private fun connectToDB(): Connection {
+    private fun connectToDB() : Connection {
         if (!File("./db", "aaa.h2.db").exists()) {
             logger.info("No database file is present, creating database")
-            val flyway = Flyway.configure().dataSource(System.getenv("URL") + ";MV_STORE=FALSE", System.getenv("LOGIN"), System.getenv("PASS")).locations("filesystem:db").load()
+            val flyway = Flyway.configure().dataSource(System.getenv("URL") + ";MV_STORE=FALSE",
+                    System.getenv("LOGIN"),
+                    System.getenv("PASS")).locations("filesystem:db/migration").load()
+            flyway.migrate()
         }
-        logger.info("Connecting to database...")
-        return getConnection(System.getenv("URL") + ";MV_STORE=FALSE", System.getenv("LOGIN"), System.getenv("PASS"))
+        return DriverManager.getConnection(System.getenv("URL") + ";MV_STORE=FALSE",
+                System.getenv("LOGIN"),
+                System.getenv("PASS"))
     }
 
     fun run(): Int {
@@ -41,6 +43,7 @@ class App(args: Array<String>) {
             result = account(handler, dal)
             logger.info("Accounting status: $result")
         }
+        dal.closeConnection()
         return result.value
     }
 }
