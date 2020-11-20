@@ -3,8 +3,6 @@ package services
 import DataAccessLayer
 import ExitCode
 import Handler
-import models.Roles
-import models.Session
 import java.text.SimpleDateFormat
 
 fun account(handler: Handler, dal: DataAccessLayer): ExitCode {
