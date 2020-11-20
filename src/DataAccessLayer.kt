@@ -55,6 +55,7 @@ class DataAccessLayer(private val connection: Connection) {
         dataSession.setString(4, handler.ds)
         dataSession.setString(5, handler.de)
         dataSession.setString(6, handler.vol)
+        dataSession.execute()
         dataSession.close()
         logger.info("The recording session is successfully created.")
     }
