@@ -1,7 +1,3 @@
 package models
 
-enum class Roles() {
-    READ,
-    WRITE,
-    EXECUTE
-}
+val possibleRoles: List<String> = listOf("WRITE", "READ", "EXECUTE")
