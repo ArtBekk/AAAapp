@@ -6,12 +6,13 @@ CREATE TABLE users(
 CREATE TABLE resources(
   id INT PRIMARY KEY AUTO_INCREMENT,
   login VARCHAR(16),
-  role VARCHAR(16),
+  role ENUM('READ', 'WRITE', 'EXECUTE'),
   resource_name VARCHAR(64),
   FOREIGN KEY (login) REFERENCES users(login));
 
 CREATE TABLE SESSIONS(
-  login VARCHAR(16) PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  login VARCHAR(16),
   role ENUM('READ', 'WRITE', 'EXECUTE'),
   resources VARCHAR(64),
   date_start DATE,
