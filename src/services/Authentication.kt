@@ -36,8 +36,7 @@ fun authenticate(handler: Handler, dal: DataAccessLayer): ExitCode {
         return if (user.hash == hash(hash(handler.password!!) + user.salt)) {
             logger.info("Password is correct.")
             ExitCode.Success
-        }
-        else {
+        } else {
             logger.info("Incorrect password.")
             ExitCode.WrongPassword
         }
