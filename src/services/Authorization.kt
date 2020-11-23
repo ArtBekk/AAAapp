@@ -28,7 +28,7 @@ fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
 
     logger.info("Checking user access to a resource.")
     logger.info("Requesting data from the database.")
-    return if (dal.getUserAccessInfo(handler).any { isResSubsidiary(it) }){
+    return if (dal.getUserAccessInfo(handler.login!!, handler.role!!).any { isResSubsidiary(it) }){
         logger.info("Access to the resource is allowed.")
         ExitCode.Success
     }
