@@ -3,10 +3,13 @@ package services
 import DataAccessLayer
 import ExitCode
 import Handler
-import logger
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import java.text.SimpleDateFormat
 
 fun account(handler: Handler, dal: DataAccessLayer): ExitCode {
+
+    val logger: Logger = LogManager.getLogger()
 
     val fDate = SimpleDateFormat("yyyy-MM-dd")
     val dataSize: Int

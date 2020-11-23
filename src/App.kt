@@ -1,9 +1,13 @@
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.flywaydb.core.Flyway
 import services.*
 import java.io.File
 import java.sql.*
 
 class App(args: Array<String>) {
+
+    val logger: Logger = LogManager.getLogger()
 
     private val handler: Handler = if (args.isNullOrEmpty())
         Handler(arrayOf("-h"))

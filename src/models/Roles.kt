@@ -1,3 +1,11 @@
 package models
 
-val possibleRoles: List<String> = listOf("WRITE", "READ", "EXECUTE")
+enum class Roles() {
+    READ,
+    WRITE,
+    EXECUTE;
+
+    companion object {
+        fun contains(name: String): Boolean = enumValues<Roles>().any { it.name == name }
+    }
+}
