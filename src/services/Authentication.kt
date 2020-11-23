@@ -3,10 +3,13 @@ package services
 import DataAccessLayer
 import ExitCode
 import Handler
-import logger
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import java.security.MessageDigest
 
 fun authenticate(handler: Handler, dal: DataAccessLayer): ExitCode {
+
+    val logger: Logger = LogManager.getLogger()
 
     fun hash(input: String): String {
         logger.info("Hashing password...")

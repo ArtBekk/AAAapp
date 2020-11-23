@@ -3,10 +3,12 @@ package services
 import DataAccessLayer
 import ExitCode
 import Handler
-import logger
+import org.apache.logging.log4j.*
 import models.Roles
 
 fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
+
+    val logger: Logger = LogManager.getLogger()
 
     fun isResSubsidiary(resFromDB: String): Boolean {
         val name: List<String> = resFromDB.split('.')
