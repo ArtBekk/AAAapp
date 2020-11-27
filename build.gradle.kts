@@ -3,9 +3,6 @@
  *
  * This generated file contains a sample Kotlin application project to get you started.
  */
-sourceSets.main {
-    java.srcDirs("src/")
-}
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
@@ -43,7 +40,6 @@ dependencies {
     //FlyWay
     implementation("org.flywaydb:flyway-core:7.3.0")
 }
-
 
 application {
     // Define the main class for the application.
