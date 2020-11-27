@@ -9,12 +9,11 @@ apply(plugin = "idea")
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.4.20"
+    kotlin("jvm") version "1.4.20"
     //Flyway, migration tool
     id("org.flywaydb.flyway") version "7.3.0"
     // Apply the application plugin to add support for building a CLI application.
     application
-    kotlin("jvm") version "1.4.20"
 }
 
 repositories {
