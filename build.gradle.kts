@@ -3,7 +3,6 @@
  *
  * This generated file contains a sample Kotlin application project to get you started.
  */
-
 sourceSets.main {
     java.srcDirs("src/")
 }
@@ -11,15 +10,18 @@ sourceSets.main {
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.3.72"
-
+    //Flyway, migration tool
+    id("org.flywaydb.flyway") version "7.3.0"
     // Apply the application plugin to add support for building a CLI application.
     application
 }
 
 repositories {
     //Parser
-    maven { "https://kotlin.bintray.com/kotlinx" }
-    jcenter()
+    maven { url = uri("https://kotlin.bintray.com/kotlinx") }
+    //h2db
+    maven { url = uri("https://mvnrepository.com/artifact/com.h2database/h2") }
+    mavenCentral()
 }
 
 dependencies {
@@ -29,14 +31,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     //Logger
-    implementation("org.apache.logging.log4j")
-    implementation("org.apache.logging.log4j")
-
-
+    implementation("org.apache.logging.log4j:log4j-api:2.7")
+    implementation("org.apache.logging.log4j:log4j-core:2.7")
 
     //Parser
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3")
+
+    //h2db
+    implementation("com.h2database:h2:1.3.148")
+
+    //FlyWay
+    implementation("org.flywaydb:flyway-core:7.3.0")
 }
+
 
 application {
     // Define the main class for the application.
