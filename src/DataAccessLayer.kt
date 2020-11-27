@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger
 
 class DataAccessLayer(private val connection: Connection) {
 
-    val logger: Logger = LogManager.getLogger()
+    private val logger: Logger = LogManager.getLogger()
 
     fun userExists(login: String): Boolean {
 

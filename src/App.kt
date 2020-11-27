@@ -18,7 +18,7 @@ class App(args: Array<String>) {
 
     private var result: ExitCode = ExitCode.Success
 
-    private fun connectToDB() : Connection {
+    private fun connectToDB(): Connection {
         if (!File("./db", "aaa.h2.db").exists()) {
             logger.info("No database file is present, creating database")
             val flyway = Flyway.configure().dataSource(System.getenv("URL") + ";MV_STORE=FALSE",
