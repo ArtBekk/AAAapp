@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    // Apply the Kotlin JVM plugin to add support for Kotlin.
+    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+    id 'application'
+    //Flyway, migration tool
+    id("org.flywaydb.flyway") version "7.3.0"
+}
+
+group 'org.example'
+version '1.0'
+
+repositories {
+    //Parser
+    maven { url = uri("https://kotlin.bintray.com/kotlinx") }
+    //h2db
+    maven { url = uri("https://mvnrepository.com/artifact/com.h2database/h2") }
+    mavenCentral()
+}
+
+mainClassName = "Main"
+
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'Main'
+    }
+    archiveClassifier = 'fat-jar'
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
+
+dependencies {
+    // Align versions of all Kotlin components
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+    // Use the Kotlin JDK 8 standard library.
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    //Logger
+    implementation("org.apache.logging.log4j:log4j-api:2.7")
+    implementation("org.apache.logging.log4j:log4j-core:2.7")
+
+    //Parser
+    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3")
+
+    //h2db
+    implementation("com.h2database:h2:1.3.148")
+
+    //FlyWay
+    implementation("org.flywaydb:flyway-core:7.3.0")
+}
