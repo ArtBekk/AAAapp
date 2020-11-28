@@ -6,12 +6,10 @@ import java.sql.Connection
 
 class DataAccessLayer(private val connection: Connection) {
 
-    private val logger: Logger = LogManager.getLogger()
+    val logger: Logger = LogManager.getLogger()
 
     fun userExists(login: String): Boolean {
-
-        try {
-            var userExists = false
+        var userExists = false
 
         logger.info("Preparing and sending an SQL query.")
         connection.prepareStatement("SELECT* FROM users WHERE login = ?").use {
@@ -25,20 +23,13 @@ class DataAccessLayer(private val connection: Connection) {
             if (queryResult.next()) userExists = true
         }
 
-            return userExists
-        } catch (ex: Exception) {
-
-            logger.info("SQL query failed")
-            return false
-        }
+        return userExists
     }
 
     fun getUser(login: String): User {
-
-        try {
-            logger.info("Preparing and sending an SQL query.")
-            val getUser = connection.prepareStatement("SELECT hash, salt FROM users WHERE login = ?")
-            getUser.setString(1, login)
+        logger.info("Preparing and sending an SQL query.")
+        connection.prepareStatement("SELECT hash, salt FROM users WHERE login = ?").use {
+            it.setString(1, login)
 
             logger.info("Getting data from a database.")
             val result = it.executeQuery()
@@ -48,17 +39,14 @@ class DataAccessLayer(private val connection: Connection) {
 
             logger.info("The data was successfully received.")
             return User(login, hash, salt)
-        } catch (ex: Exception) {
-            logger.info("SQL query failed")
-            return User("", "","")
         }
     }
 
     fun getUserAccessInfo(login: String, role: String): MutableList<String> {
-
-        try {
-            logger.info("Preparing and sending an SQL query.")
-            val searchRights = connection.prepareStatement("SELECT resource_name FROM resources WHERE login = ? AND role = ?")
+        logger.info("Preparing and sending an SQL query.")
+        connection.prepareStatement("SELECT resource_name FROM resources WHERE login = ? AND role = ?").use {
+            it.setString(1, login)
+            it.setString(2, role)
 
 
             logger.info("Getting data from a database.")
@@ -71,17 +59,12 @@ class DataAccessLayer(private val connection: Connection) {
 
             logger.info("The data was successfully received.")
             return mutableList
-        } catch (ex: Exception) {
-            logger.info("SQL query failed")
-            return mutableListOf()
         }
     }
 
     fun addSession(login: String, role: String, res: String, ds: String, de: String, vol: String) {
-
-        try {
-            logger.info("Preparing and sending an SQL query.")
-            val dataSession = connection.prepareStatement("INSERT INTO sessions (login, role, resources, date_start, date_end, data_size) VALUES (?, ?, ?, ?, ?, ?)")
+        logger.info("Preparing and sending an SQL query.")
+        connection.prepareStatement("INSERT INTO sessions (login, role, resources, date_start, date_end, data_size) VALUES (?, ?, ?, ?, ?, ?)").use {
 
             it.setString(1, login)
             it.setString(2, role)
@@ -92,8 +75,6 @@ class DataAccessLayer(private val connection: Connection) {
 
             it.execute()
             logger.info("The recording session is successfully created.")
-        } catch (ex: Exception) {
-            logger.info("SQL query failed")
         }
     }
 
