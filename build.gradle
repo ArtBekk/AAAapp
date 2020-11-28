@@ -21,7 +21,7 @@ repositories {
 mainClassName = "Main"
 
 
-task customFatJar(type: Jar) {
+jar {
     manifest {
         attributes 'Main-Class': 'Main'
     }
@@ -30,7 +30,6 @@ task customFatJar(type: Jar) {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-    with jar
 }
 
 
