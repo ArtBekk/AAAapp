@@ -2,7 +2,7 @@ language: kotlin
 
 before_script:
   - sudo snap install --classic kotlin
-  - ./BUILD.sh
+  - ./gradlew build
 
 script:
   - ./TEST.sh
