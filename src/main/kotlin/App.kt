@@ -19,13 +19,11 @@ class App(args: Array<String>) {
     private var result: ExitCode = ExitCode.Success
 
     private fun connectToDB(): Connection {
-        if (!File("./db", "aaa.h2.db").exists()) {
-            logger.info("No database file is present, creating database")
-            val flyway = Flyway.configure().dataSource(System.getenv("URL") + ";MV_STORE=FALSE",
-                    System.getenv("LOGIN"),
-                    System.getenv("PASS")).locations("filesystem:db/migration").load()
-            flyway.migrate()
-        }
+        val flyway = Flyway.configure().dataSource(System.getenv("URL") + ";MV_STORE=FALSE",
+                System.getenv("LOGIN"),
+                System.getenv("PASS")).locations("filesystem:db/migration").load()
+        flyway.migrate()
+
         return DriverManager.getConnection(System.getenv("URL") + ";MV_STORE=FALSE",
                 System.getenv("LOGIN"),
                 System.getenv("PASS"))
