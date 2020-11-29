@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+    }
+}
+
 plugins {
     id 'java'
     // Apply the Kotlin JVM plugin to add support for Kotlin.
@@ -9,6 +15,16 @@ plugins {
 }
 
 apply plugin: "org.flywaydb.flyway"
+apply plugin: "org.junit.platform.gradle.plugin" //For Spek
+
+//Spek
+junitPlatform {
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
 
 group 'org.example'
 version '1.0'
@@ -19,9 +35,8 @@ repositories {
     //h2db
     maven { url = uri("https://mvnrepository.com/artifact/com.h2database/h2") }
     maven { url "https://plugins.gradle.org/m2/" }
-    maven {
-        url "https://dl.bintray.com/mockito/maven"
-    }
+    maven { url "https://dl.bintray.com/mockito/maven" }
+    maven { url "http://dl.bintray.com/jetbrains/spek" }
     mavenCentral()
 }
 
@@ -46,7 +61,7 @@ dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     // spek requires kotlin-reflect, can be omitted if already in the classpath
-    testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
+    //testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
 
     //Logger
     implementation("org.apache.logging.log4j:log4j-api:2.7")
@@ -62,10 +77,10 @@ dependencies {
     implementation("org.flywaydb:flyway-core:7.3.0")
 
     //Spek
-    testImplementation "org.spekframework.spek2:spek-dsl-jvm:2.0.14"
-    testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:2.0.14"
+    testCompile 'org.jetbrains.spek:spek-api:1.1.5'
+    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.5'
 
-    //Spek
+    //Mockito
     testImplementation "org.mockito:mockito-core:1.+"
 }
 
