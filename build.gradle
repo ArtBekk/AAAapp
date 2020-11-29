@@ -64,6 +64,9 @@ dependencies {
     //Spek
     testImplementation "org.spekframework.spek2:spek-dsl-jvm:2.0.14"
     testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:2.0.14"
+
+    //Spek
+    testImplementation "org.mockito:mockito-core:1.+"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
