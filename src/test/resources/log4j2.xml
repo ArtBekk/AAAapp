@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true" name="AAAappLogger"
+               packages="org.apache.logging.log4j.test">
+
+    <Filter type="ThresholdFilter" level="trace"/>
+
+    <Appenders>
+        <Appender type="Console" name="STDOUT">
+            <Layout type="PatternLayout">
+                <Pattern>%d %C [%t] %m%n</Pattern>
+            </Layout>>
+        </Appender>>
+        <Appender type="File" name="File" fileName="aaa.log">
+            <Layout type="PatternLayout">
+                <Pattern>%d %C [%t] %m%n</Pattern>
+            </Layout>
+        </Appender>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.apache.logging.log4j.test1" level="debug" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+
+        <Logger name="org.apache.logging.log4j.test2" level="debug" additivity="false">
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <Root level="trace">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
