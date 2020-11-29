@@ -18,7 +18,10 @@ repositories {
     maven { url = uri("https://kotlin.bintray.com/kotlinx") }
     //h2db
     maven { url = uri("https://mvnrepository.com/artifact/com.h2database/h2") }
-    maven { url "https://plugins.gradle.org/m2/"}
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven {
+        url "https://dl.bintray.com/mockito/maven"
+    }
     mavenCentral()
 }
 
@@ -42,6 +45,8 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    // spek requires kotlin-reflect, can be omitted if already in the classpath
+    testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
 
     //Logger
     implementation("org.apache.logging.log4j:log4j-api:2.7")
@@ -55,6 +60,10 @@ dependencies {
 
     //FlyWay
     implementation("org.flywaydb:flyway-core:7.3.0")
+
+    //Spek
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:2.0.14"
+    testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:2.0.14"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
