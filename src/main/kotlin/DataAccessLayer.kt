@@ -3,7 +3,6 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.sql.Connection
 
-
 class DataAccessLayer(private val connection: Connection) {
 
     private val logger: Logger = LogManager.getLogger()
