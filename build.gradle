@@ -9,6 +9,7 @@ plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm' version '1.4.20'
     id 'application'
+    id 'jacoco'
     id 'idea'
     //Flyway, migration tool
     id("org.flywaydb.flyway") version "7.3.0"
@@ -100,3 +101,19 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         jvmTarget = "1.8"
     }
 }
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+jacocoTestReport {
+    group = "reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+}
+
+test.finalizedBy jacocoTestReport
