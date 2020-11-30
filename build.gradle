@@ -27,6 +27,10 @@ junitPlatform {
     }
 }
 
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
 group 'org.example'
 version '1.0'
 
@@ -94,6 +98,7 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+    finalizedBy jacocoTestReport // launches JaCoCo after tests
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
