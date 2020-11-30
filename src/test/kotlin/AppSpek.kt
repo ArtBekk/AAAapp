@@ -5,7 +5,7 @@ import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Assertions
 import org.mockito.Mockito.*
 
-var mockedDAL = mock(DataAccessLayer::class.java)
+var mockedDAL: DataAccessLayer = mock(DataAccessLayer::class.java)
 
 class AppSpek : Spek({
     given("App class") {
