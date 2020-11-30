@@ -28,20 +28,6 @@ apply plugin: "org.flywaydb.flyway"
 //For Spek
 apply plugin: "org.junit.platform.gradle.plugin"
 
-// ot make JUnit use Spek as test engine
-junitPlatform {
-    filters {
-        engines {
-            include 'spek'
-        }
-    }
-}
-
-// tests are required to run before generating the report
-jacocoTestReport {
-    dependsOn test
-}
-
 group 'org.example'
 version '1.0'
 
@@ -105,7 +91,7 @@ dependencies {
     testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.5'
 
     //Mockito
-    testImplementation "org.mockito:mockito-core:1.+"
+    testImplementation "org.mockito:mockito-core:2.+"
 
     //JUnit
     testImplementation(platform('org.junit:junit-bom:5.7.0'))
@@ -120,9 +106,23 @@ test {
     finalizedBy jacocoTestReport // launches JaCoCo after tests
 }
 
+// ot make JUnit use Spek as test engine
+junitPlatform {
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
+
 //JaCoCo
 jacoco {
     toolVersion = "0.8.5"
+}
+
+// tests are required to run before generating the report
+jacocoTestReport {
+    dependsOn test
 }
 
 //Report is formed only in .html
