@@ -6,19 +6,29 @@ buildscript {
 
 plugins {
     id 'java'
+
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+
     id 'application'
+
+    //Jacoco
     id 'jacoco'
+
+    //IDEA plugin for exporting libs/dependencies to IDE
     id 'idea'
+
     //Flyway, migration tool
     id("org.flywaydb.flyway") version "7.3.0"
+
 }
-
+//for FlyWay
 apply plugin: "org.flywaydb.flyway"
-apply plugin: "org.junit.platform.gradle.plugin" //For Spek
 
-//Spek
+//For Spek
+apply plugin: "org.junit.platform.gradle.plugin"
+
+// ot make JUnit use Spek as test engine
 junitPlatform {
     filters {
         engines {
@@ -27,8 +37,9 @@ junitPlatform {
     }
 }
 
+// tests are required to run before generating the report
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
+    dependsOn test
 }
 
 group 'org.example'
@@ -37,17 +48,24 @@ version '1.0'
 repositories {
     //Parser
     maven { url = uri("https://kotlin.bintray.com/kotlinx") }
+
     //h2db
     maven { url = uri("https://mvnrepository.com/artifact/com.h2database/h2") }
+
     maven { url "https://plugins.gradle.org/m2/" }
+
+    //Mockito
     maven { url "https://dl.bintray.com/mockito/maven" }
+
+    //Spek
     maven { url "http://dl.bintray.com/jetbrains/spek" }
+
     mavenCentral()
 }
 
 mainClassName = "Main"
 
-
+//To include all libs into one jar
 jar {
     manifest {
         attributes 'Main-Class': 'Main'
@@ -59,12 +77,13 @@ jar {
     }
 }
 
-
 dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     // spek requires kotlin-reflect, can be omitted if already in the classpath
     //testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
 
@@ -101,24 +120,25 @@ test {
     finalizedBy jacocoTestReport // launches JaCoCo after tests
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
+//JaCoCo
 jacoco {
     toolVersion = "0.8.5"
 }
 
+//Report is formed only in .html
 jacocoTestReport {
     group = "reporting"
     description = "Generate Jacoco coverage reports after running tests."
     reports {
-        xml.enabled true
+        xml.enabled false
         html.enabled true
         csv.enabled false
     }
 }
 
-test.finalizedBy jacocoTestReport
+//To allow usage of .use{}
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
