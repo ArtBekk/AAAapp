@@ -4,6 +4,9 @@ import org.flywaydb.core.Flyway
 import org.mockito.Mock
 import services.*
 import java.sql.*
+import org.jetbrains.spek.api.*
+import org.jetbrains.spek.api.dsl.*
+import org.junit.jupiter.api.Assertions
 
 class App(args: Array<String>) {
 
@@ -20,14 +23,14 @@ class App(args: Array<String>) {
     private var result: ExitCode = ExitCode.Success
 
     private fun connectToDB(): Connection {
-        val flyway = Flyway.configure().dataSource(System.getenv("URL") + ";MV_STORE=FALSE",
-                System.getenv("LOGIN"),
-                System.getenv("PASS")).locations("filesystem:db/migration").load()
+        val flyway = Flyway.configure().dataSource("jdbc:h2:file:./db/aaa" + ";MV_STORE=FALSE",
+                "ArtBekk",
+                "3678").locations("filesystem:db/migration").load()
         flyway.migrate()
 
-        return DriverManager.getConnection(System.getenv("URL") + ";MV_STORE=FALSE",
-                System.getenv("LOGIN"),
-                System.getenv("PASS"))
+        return DriverManager.getConnection("jdbc:h2:file:./db/aaa" + ";MV_STORE=FALSE",
+                "ArtBekk",
+                "3678")
     }
 
     fun run(): Int {
@@ -53,3 +56,27 @@ class App(args: Array<String>) {
         return result.value
     }
 }
+
+class AppTest : Spek({
+    given("App class") {
+        val sampleApp = App(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "WOLOLOLO",
+                "-res", "AV"))
+        on("launch") {
+            val result = sampleApp.run()
+            it("doesn't account") {
+                Assertions.assertEquals(result, ExitCode.UnknownRole.value)
+            }
+        }
+
+
+    }
+    given("") {
+        val sampleApp = App(arrayOf("-login", "ArtBekk", "-pass", "3678"))
+        on("launch") {
+            val result = sampleApp.run()
+            it("only authenticates") {
+                Assertions.assertEquals(result, ExitCode.Success.value)
+            }
+        }
+    }
+})
