@@ -10,7 +10,7 @@
                 <Pattern>%d %C [%t] %m%n</Pattern>
             </Layout>>
         </Appender>>
-        <Appender type="File" name="File" fileName="aaa.log">
+        <Appender type="File" name="File" fileName="aaaTEST.log">
             <Layout type="PatternLayout">
                 <Pattern>%d %C [%t] %m%n</Pattern>
             </Layout>
