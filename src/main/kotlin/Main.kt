@@ -3,7 +3,6 @@
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import services.getDBConnection
-import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     val logger: Logger = LogManager.getLogger()
@@ -27,5 +26,5 @@ fun main(args: Array<String>) {
     val result = app.run()
     logger.info("Launched services successfully")
 
-    exitProcess(result)
+    // exitProcess(result)
 }
