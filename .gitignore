@@ -4,10 +4,9 @@
 *.iml
 /bin/
 *.db
+*.ipr
+*.iws
 # Ignore Gradle project-specific cache directory
 .gradle
-
 # Ignore Gradle build output directory
 build
-/AAAapp.ipr
-/AAAapp.iws
