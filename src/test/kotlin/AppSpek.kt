@@ -10,6 +10,7 @@ import org.mockito.BDDMockito
 import org.mockito.Mockito
 
 class AppSpek : Spek({
+    val mockedDAL: DataAccessLayer = Mockito.mock(DataAccessLayer::class.java)
     val logger: Logger = LogManager.getLogger()
     describe("App class tests") {
         logger.info("Starting spek tests for App class")
