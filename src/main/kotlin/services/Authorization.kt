@@ -3,8 +3,9 @@ package services
 import DataAccessLayer
 import ExitCode
 import Handler
-import org.apache.logging.log4j.*
 import models.Roles
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 
 fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
 
