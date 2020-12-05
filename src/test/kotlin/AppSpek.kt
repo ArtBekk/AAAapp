@@ -1,4 +1,3 @@
-import ExitCode.*
 import models.User
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -19,77 +18,131 @@ class AppSpek : Spek({
             val sampleApp = App(mockedDAL, handler)
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(false)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, UnknownLogin.value)
+            Assertions.assertEquals(result, ExitCode.UnknownLogin.value)
         }
         it("Authentication: WrongPassword") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678"))
             val sampleApp = App(mockedDAL, handler)
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59jkcb971c7ea74110", "c69de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59jkcb971c7ea74110",
+                    "c69de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             val result = sampleApp.run()
-            Assertions.assertEquals(result, WrongPassword.value)
+            Assertions.assertEquals(result, ExitCode.WrongPassword.value)
         }
         it("Authentication: Success") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678"))
             val sampleApp = App(mockedDAL, handler)
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110", "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             val result = sampleApp.run()
-            Assertions.assertEquals(result, Success.value)
+            Assertions.assertEquals(result, ExitCode.Success.value)
         }
         it("Authorization: no such role") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "DELETE", "-res", "A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, UnknownRole.value)
+            Assertions.assertEquals(result, ExitCode.UnknownRole.value)
         }
         it("Authorization: No access") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A"))
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110", "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf())
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, NoAccess.value)
+            Assertions.assertEquals(result, ExitCode.NoAccess.value)
         }
         it("Authorization: Success") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A"))
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110", "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, Success.value)
+            Assertions.assertEquals(result, ExitCode.Success.value)
         }
         it("Accounting: Incorrect activity (Invalid volume)") {
-            val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
-                    "-vol", "10001", "-ds", "11/10/2020", "-de", "13/10/2020"))
+            val handler = Handler(
+                arrayOf(
+                    "-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
+                    "-vol", "10001", "-ds", "11/10/2020", "-de", "13/10/2020"
+                )
+            )
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110", "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, IncorrectActivity.value)
+            Assertions.assertEquals(result, ExitCode.IncorrectActivity.value)
         }
         it("Accounting: Incorrect activity (Invalid date)") {
-            val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
-                    "-vol", "100", "-ds", "11/10/2020", "-de", "13242020"))
+            val handler = Handler(
+                arrayOf(
+                    "-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
+                    "-vol", "100", "-ds", "11/10/2020", "-de", "13242020"
+                )
+            )
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110", "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, IncorrectActivity.value)
+            Assertions.assertEquals(result, ExitCode.IncorrectActivity.value)
         }
         it("Accounting: Incorrect activity (Invalid volume)") {
-            val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
-                    "-vol", "110", "-ds", "11/10/2020", "-de", "13/10/2020"))
+            val handler = Handler(
+                arrayOf(
+                    "-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
+                    "-vol", "110", "-ds", "11/10/2020", "-de", "13/10/2020"
+                )
+            )
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
-            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(User("ArtBekk", "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110", "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"))
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, Success.value)
+            Assertions.assertEquals(result, ExitCode.Success.value)
         }
     }
 })
