@@ -27,8 +27,7 @@ fun account(handler: Handler, dal: DataAccessLayer): ExitCode {
         result = if (dataSize in 0..1000) {
             logger.info("Valid volume.")
             logger.info("Request to record the current session.")
-            dal.addSession(handler.login!!, handler.role!!, handler.res!!, handler.ds!!,
-                    handler.de!!, handler.vol!!)
+            dal.addSession(handler.login!!, handler.role!!, handler.res!!, handler.ds!!, handler.de!!, handler.vol!!)
             ExitCode.Success
         } else {
             logger.info("The volume is invalid.")
