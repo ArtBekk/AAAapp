@@ -1,6 +1,6 @@
 # AAAapp
 
-[![Build Status](https://travis-ci.org/ArtBekk/AAAapp.svg?branch=master)](https://travis-ci.org/ArtBekk/AAAapp)
+[![Build Status](https://travis-ci.com/ArtBekk/AAAapp.svg?branch=master)](https://travis-ci.com/ArtBekk/AAAapp)
 
 
 **Планы разработки:**
