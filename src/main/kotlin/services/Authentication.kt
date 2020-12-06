@@ -20,7 +20,7 @@ fun authenticate(handler: Handler, dal: DataAccessLayer): ExitCode {
     }
 
     logger.info("Checking login format...")
-    if (handler.login!!.matches(".+[^a-zA-Z0-9]".toRegex())) {
+    if (!handler.login!!.matches("^[a-zA-Z0-9]*\$".toRegex())) {
         logger.info("Incorrect login format.")
         return ExitCode.IncorrectLoginFormat
     }
