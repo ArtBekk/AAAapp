@@ -15,6 +15,9 @@ fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
         val name: List<String> = resFromDB.split('.')
         var result = true
         val splitInput = handler.res!!.split('.')
+        if (splitInput.size < name.size) {
+            return false
+        }
         for (i in name.indices) {
             if (i < splitInput.size) {
                 if (splitInput[i] != name[i]) result = false
