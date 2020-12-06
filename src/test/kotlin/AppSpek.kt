@@ -167,7 +167,7 @@ class AppSpek : Spek({
             Assertions.assertEquals(ExitCode.Success.value, result)
         }
         it("Shows usage") {
-            val handler = Handler(arrayOf("-h"))
+            val handler = Handler(arrayOf("some trash"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
             Assertions.assertEquals(ExitCode.Success.value, result)
