@@ -22,11 +22,7 @@ class Handler(args: Array<String>) {
     fun accountingNeeded(): Boolean = authorizationNeeded() && ds != null && de != null && vol != null
 
     init {
-        try {
-            parser.parse(args)
-        } catch (e: java.lang.IllegalStateException) {
-            Handler(arrayOf("-h"))
-        }
+        parser.parse(args)
         logger.info("Parsed arguments successfully")
     }
 }
