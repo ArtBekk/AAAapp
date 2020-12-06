@@ -11,7 +11,7 @@ import org.mockito.Mockito
 class AppSpek : Spek({
     val mockedDAL: DataAccessLayer = Mockito.mock(DataAccessLayer::class.java)
     val logger: Logger = LogManager.getLogger()
-    describe("App class tests") {
+    describe("Tests of app class and services that it uses") {
         logger.info("Starting spek tests for App class")
         it("Authentication: UnknownLogin") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678"))
@@ -19,6 +19,12 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(false)
             val result = sampleApp.run()
             Assertions.assertEquals(result, ExitCode.UnknownLogin.value)
+        }
+        it("Authentication: IncorrectLoginFormat") {
+            val handler = Handler(arrayOf("-login", "@rtB#kk", "-pass", "3678"))
+            val sampleApp = App(mockedDAL, handler)
+            val result = sampleApp.run()
+            Assertions.assertEquals(result, ExitCode.IncorrectLoginFormat.value)
         }
         it("Authentication: WrongPassword") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678"))
@@ -83,6 +89,22 @@ class AppSpek : Spek({
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
             Assertions.assertEquals(result, ExitCode.Success.value)
+        }
+        it("Authorization: No Access") {
+            val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A"))
+            BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
+            BDDMockito.given(mockedDAL.getUser("ArtBekk")).willReturn(
+                User(
+                    "ArtBekk",
+                    "6d0f708df8a2ef0b6f8ddd64370303b371b0843038bc0a59decb971c7ea74110",
+                    "c86de8b9a29e7cc29f3eb54f86568eb315358c02eead90b48ca0a4742448ad99"
+                )
+            )
+            val mutableList = mutableListOf("A.C.D", "A.D.CD", "D.E")
+            BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableList)
+            val sampleApp = App(mockedDAL, handler)
+            val result = sampleApp.run()
+            Assertions.assertEquals(result, ExitCode.NoAccess.value)
         }
         it("Accounting: Incorrect activity (Invalid volume)") {
             val handler = Handler(
