@@ -111,6 +111,9 @@ test {
         events "passed", "skipped", "failed"
     }
     finalizedBy jacocoTestReport // launches JaCoCo after tests
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/junitPlatformTest.exec")
+    }
 }
 
 //JaCoCo
@@ -123,7 +126,7 @@ jacoco {
 junitPlatformTest {
     jacoco {
         // Tells JUnit to output its test execution data here.
-        destinationFile = file("$buildDir/jacoco/JUnitTestReport.exec")
+        destinationFile = file("$buildDir/jacoco/JUnitPlatformTest.exec")
     }
 }
 
@@ -132,11 +135,9 @@ jacocoTestReport {
     group = "reporting"
     description = "Generate Jacoco coverage reports after running tests."
     reports {
-        xml.enabled false
         html.enabled true
-        csv.enabled false
+        html.destination file ("$buildDir/jacoco/html")
     }
-    sourceSets sourceSets.main
 }
 
 task applicationCodeCoverageReport(type: JacocoReport) {
