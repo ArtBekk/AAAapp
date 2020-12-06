@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger
 
 class Handler(args: Array<String>) {
 
-    val logger: Logger = LogManager.getLogger()
+    private val logger: Logger = LogManager.getLogger()
 
     private val parser = ArgParser("AAAapp")
 
