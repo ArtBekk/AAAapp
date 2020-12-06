@@ -88,7 +88,7 @@ class AppSpek : Spek({
             val handler = Handler(
                 arrayOf(
                     "-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
-                    "-vol", "10001", "-ds", "11/10/2020", "-de", "13/10/2020"
+                    "-vol", "10001", "-ds", "11-10-2020", "-de", "13-10-2020"
                 )
             )
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
@@ -108,7 +108,7 @@ class AppSpek : Spek({
             val handler = Handler(
                 arrayOf(
                     "-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
-                    "-vol", "100", "-ds", "11/10/2020", "-de", "13242020"
+                    "-vol", "100", "-ds", "11-10-2020", "-de", "13242020"
                 )
             )
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
@@ -124,11 +124,11 @@ class AppSpek : Spek({
             val result = sampleApp.run()
             Assertions.assertEquals(result, ExitCode.IncorrectActivity.value)
         }
-        it("Accounting: Incorrect activity (Invalid volume)") {
+        it("Accounting: Success") {
             val handler = Handler(
                 arrayOf(
                     "-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A",
-                    "-vol", "110", "-ds", "11/10/2020", "-de", "13/10/2020"
+                    "-vol", "110", "-ds", "11-10-2020", "-de", "13-10-2020"
                 )
             )
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(true)
