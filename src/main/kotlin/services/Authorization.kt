@@ -19,9 +19,7 @@ fun authorize(handler: Handler, dal: DataAccessLayer): ExitCode {
             return false
         }
         for (i in name.indices) {
-            if (i < splitInput.size) {
-                if (splitInput[i] != name[i]) result = false
-            } else break
+            if (splitInput[i] != name[i]) result = false
         }
         return result
     }
