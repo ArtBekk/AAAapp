@@ -18,13 +18,13 @@ class AppSpek : Spek({
             val sampleApp = App(mockedDAL, handler)
             BDDMockito.given(mockedDAL.userExists("ArtBekk")).willReturn(false)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.UnknownLogin.value)
+            Assertions.assertEquals(ExitCode.UnknownLogin.value, result)
         }
         it("Authentication: IncorrectLoginFormat") {
             val handler = Handler(arrayOf("-login", "@rtB#kk", "-pass", "3678"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.IncorrectLoginFormat.value)
+            Assertions.assertEquals(ExitCode.IncorrectLoginFormat.value, result)
         }
         it("Authentication: WrongPassword") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678"))
@@ -38,7 +38,7 @@ class AppSpek : Spek({
                 )
             )
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.WrongPassword.value)
+            Assertions.assertEquals(ExitCode.WrongPassword.value, result)
         }
         it("Authentication: Success") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678"))
@@ -52,13 +52,13 @@ class AppSpek : Spek({
                 )
             )
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.Success.value)
+            Assertions.assertEquals(ExitCode.Success.value, result)
         }
         it("Authorization: no such role") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "DELETE", "-res", "A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.UnknownRole.value)
+            Assertions.assertEquals(ExitCode.UnknownRole.value, result)
         }
         it("Authorization: No access") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A"))
@@ -73,7 +73,7 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf())
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.NoAccess.value)
+            Assertions.assertEquals(ExitCode.NoAccess.value, result)
         }
         it("Authorization: Success") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A"))
@@ -88,7 +88,7 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.Success.value)
+            Assertions.assertEquals(ExitCode.Success.value, result)
         }
         it("Authorization: No Access") {
             val handler = Handler(arrayOf("-login", "ArtBekk", "-pass", "3678", "-role", "READ", "-res", "A"))
@@ -104,7 +104,7 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableList)
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.NoAccess.value)
+            Assertions.assertEquals(ExitCode.NoAccess.value, result)
         }
         it("Accounting: Incorrect activity (Invalid volume)") {
             val handler = Handler(
@@ -124,7 +124,7 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.IncorrectActivity.value)
+            Assertions.assertEquals(ExitCode.IncorrectActivity.value, result)
         }
         it("Accounting: Incorrect activity (Invalid date)") {
             val handler = Handler(
@@ -144,7 +144,7 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.IncorrectActivity.value)
+            Assertions.assertEquals(ExitCode.IncorrectActivity.value, result)
         }
         it("Accounting: Success") {
             val handler = Handler(
@@ -164,7 +164,13 @@ class AppSpek : Spek({
             BDDMockito.given(mockedDAL.getUserAccessInfo("ArtBekk", "READ")).willReturn(mutableListOf("A"))
             val sampleApp = App(mockedDAL, handler)
             val result = sampleApp.run()
-            Assertions.assertEquals(result, ExitCode.Success.value)
+            Assertions.assertEquals(ExitCode.Success.value, result)
+        }
+        it("Shows usage") {
+            val handler = Handler(arrayOf("-h"))
+            val sampleApp = App(mockedDAL, handler)
+            val result = sampleApp.run()
+            Assertions.assertEquals(ExitCode.Success.value, result)
         }
     }
 })
