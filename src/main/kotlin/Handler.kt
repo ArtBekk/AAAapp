@@ -25,7 +25,6 @@ class Handler(args: Array<String>) {
         try {
             parser.parse(args)
         } catch (e: java.lang.IllegalStateException) {
-            Handler(arrayOf("-h"))
         }
         logger.info("Parsed arguments successfully")
     }
