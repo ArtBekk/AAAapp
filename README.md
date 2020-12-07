@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/ArtBekk/AAAapp.svg?branch=master)](https://travis-ci.com/ArtBekk/AAAapp)
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
+[![codecov](https://codecov.io/gh/ArtBekk/AAAapp/branch/master/graph/badge.svg)](https://codecov.io/gh/ArtBekk/AAAapp)
 
 
 **Планы разработки:**
