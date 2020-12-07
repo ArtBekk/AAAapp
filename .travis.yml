@@ -3,6 +3,8 @@ language: kotlin
 before_script:
   - sudo snap install --classic kotlin
   - ./BUILD.sh
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 script:
   - ./TEST.sh
