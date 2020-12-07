@@ -128,6 +128,10 @@ junitPlatformTest {
         // Tells JUnit to output its test execution data here.
         destinationFile = file("$buildDir/jacoco/JUnitPlatformTest.exec")
     }
+    finalizedBy jacocoTestReport // launches JaCoCo after tests
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/junitPlatformTest.exec")
+    }
 }
 
 //Report is formed only in .html
