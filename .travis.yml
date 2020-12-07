@@ -4,7 +4,7 @@ before_script:
   - sudo snap install --classic kotlin
   - ./BUILD.sh
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -f build/jacoco/test/jacocoTestReport.xml
+  - bash <(curl -s https://codecov.io/bash) -f "*.xml"
 
 script:
   - ./TEST.sh
