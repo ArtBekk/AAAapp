@@ -10,7 +10,7 @@ import services.getDBConnection
 val mockedHandler: Handler = Mockito.mock(Handler::class.java)
 val dal = DataAccessLayer(getDBConnection("jdbc:h2:file:./db/aaa", "ArtBekk", "3678"))
 
-internal class DataAccessLayerTestSpec : Spek({
+internal class DataAccessLayerTestSpek : Spek({
     describe("Class tests for working with data") {
         it("User name is found") {
             BDDMockito.given(mockedHandler.login).willReturn("ArtBekk")
