@@ -9,8 +9,10 @@ plugins {
     id 'application'
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm' version '1.4.20'
-    //IDEA plugin for exporting libs/dependencies to IDE
+    // IDEA plugin for exporting libs/dependencies to IDE
     id 'idea'
+    // Jetty
+    id "org.gretty" version "3.0.3"
 }
 
 dependencies {
