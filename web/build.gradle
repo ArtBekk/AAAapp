@@ -1,0 +1,18 @@
+buildscript {
+    dependencies {
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:9.4.1"
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+    }
+}
+
+plugins {
+    id 'application'
+    // Apply the Kotlin JVM plugin to add support for Kotlin.
+    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+    //IDEA plugin for exporting libs/dependencies to IDE
+    id 'idea'
+}
+
+dependencies {
+    compile(project(":app"))
+}
