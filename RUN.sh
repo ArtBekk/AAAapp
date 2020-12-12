@@ -8,4 +8,4 @@ if [ -z "$PASS" ]; then
     export PASS=3678
 fi
 
-java -jar ./app/build/libs/AAAapp-1.0-fat-jar.jar $@
+java -jar ./app/build/libs/app-1.0-fat-jar.jar $@
