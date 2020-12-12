@@ -13,8 +13,17 @@ plugins {
     id 'idea'
     // Jetty
     id "org.gretty" version "3.0.3"
+    id 'war'
+}
+
+application{
+    applicationName("app")
 }
 
 dependencies {
     compile(project(":app"))
+}
+
+war {
+    from 'src/rootContent' // adds a file-set to the root of the archive
 }
