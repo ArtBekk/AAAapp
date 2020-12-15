@@ -1,0 +1,45 @@
+#headBody{
+
+	background-image: url(white-cubes.png);
+    background-repeat: repeat;
+
+}
+
+#formBlock{
+	font-size: 18px;
+	color: FFFFFF;
+	padding: 20px 0 10px 0;
+	font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+	font-weight: bold;
+	text-align: center;
+	padding-bottom: 10px;
+	background: #222222;
+	margin:100 25% 0 25%;
+	width:50%;
+	border-radius: 20px;
+	border: #696969 5px solid;
+}
+#loginInput{
+	padding: 5px 5px 5px 5px;
+	border-radius: 10px;
+	border: #000000 1px solid;
+	outline: none;
+}
+
+#buttonSub{
+  background:#eee;
+  color:#000000;
+  width:90px;
+  text-align:center;
+  margin:40px auto;
+  padding:10px 10px;
+  border-radius: 20px;
+  border: #A9A9A9 2px solid;
+  font-style: bold;
+  cursor: pointer;
+  outline: none;
+}
+
+#buttonSub:hover{
+  box-shadow:0px -5px 0 #A9A9A9 inset;
+}
