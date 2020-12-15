@@ -15,4 +15,6 @@ plugins {
 
 dependencies {
     compile(project(":app"))
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
 }

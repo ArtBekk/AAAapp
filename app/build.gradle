@@ -72,6 +72,10 @@ dependencies {
     //JUnit
     testImplementation(platform('org.junit:junit-bom:5.7.0'))
     testImplementation "org.junit.jupiter:junit-jupiter"
+
+    //Javax
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
 }
 
 // To make JUnit use Spek as test engine
