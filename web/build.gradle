@@ -9,12 +9,21 @@ plugins {
     id 'application'
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm' version '1.4.20'
-    //IDEA plugin for exporting libs/dependencies to IDE
+    // IDEA plugin for exporting libs/dependencies to IDE
     id 'idea'
+    // Jetty
+    id "org.gretty" version "3.0.3"
+    id 'war'
+}
+
+application{
+    applicationName("app")
 }
 
 dependencies {
     compile(project(":app"))
-    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+}
+
+war {
+    from 'src/rootContent' // adds a file-set to the root of the archive
 }
