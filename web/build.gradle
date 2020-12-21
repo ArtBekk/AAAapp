@@ -20,7 +20,12 @@ application{
     applicationName("app")
 }
 
-dependencies {
+dependencies{
+    compile "org.eclipse.jetty:jetty-server:9.4.25.v20191220"
+    compile "org.eclipse.jetty:jetty-servlet:9.4.25.v20191220"
+    compile "org.eclipse.jetty:jetty-webapp:9.4.25.v20191220"
+    compile "org.eclipse.jetty:jetty-annotations:9.4.25.v20191220"
+    compile "javax.servlet:javax.servlet-api:3.1.0"
     compile(project(":app"))
 }
 
