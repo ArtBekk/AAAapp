@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = ["/echo-servlet", "/echo/get/*"])
+@Singleton
+@WebServlet(name = "EchoServlet", urlPatterns = ["echo/*"])
 class EchoServlet : HttpServlet() {
 
     @Throws(ServletException::class)
