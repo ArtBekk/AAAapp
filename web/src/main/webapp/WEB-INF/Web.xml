@@ -12,12 +12,12 @@ http://xmlns.jcp.org/xml/ns/javaee "
     <display-name>app</display-name>
 
     <servlet>
-        <servlet-name>EchoServlet</servlet-name>
-        <servlet-class>EchoServlet</servlet-class>
+        <servlet-name>echoServlet</servlet-name>
+        <servlet-class>servlets.EchoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EchoServlet</servlet-name>
-        <url-pattern>echo/*</url-pattern>
+        <servlet-name>echoServlet</servlet-name>
+        <url-pattern>/echo/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

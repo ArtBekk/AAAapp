@@ -1,4 +1,5 @@
-import com.google.inject.Singleton
+package servlets
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,8 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Singleton
-@WebServlet(name = "EchoServlet", urlPatterns = ["echo/*"])
+@WebServlet(name = "echoServlet", urlPatterns = ["echo/*"])
 class EchoServlet : HttpServlet() {
 
     @Throws(ServletException::class)
@@ -25,9 +25,18 @@ class EchoServlet : HttpServlet() {
 
     @Throws(ServletException::class, IOException::class)
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "text/html";
         val uri = req.requestURI
         val login = req.getParameter("login")
         resp.writer.write("doGet\n")
+    }
+
+    @Throws(ServletException::class, IOException::class)
+    override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
+        resp.contentType = "text/html";
+        val uri = req.requestURI
+        val login = req.getParameter("login")
+        resp.writer.write("doPost\n")
     }
 
     override fun destroy() {
