@@ -1,5 +1,5 @@
 if [ -z "$URL" ]; then
-    export URL=jdbc:h2:file:./db/aaa
+    export URL=jdbc:h2:file:./app/db/aaa
 fi
 if [ -z "$LOGIN" ]; then
     export LOGIN=ArtBekk
