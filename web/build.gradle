@@ -7,21 +7,19 @@ buildscript {
 
 plugins {
     id 'application'
-    // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
-    // IDEA plugin for exporting libs/dependencies to IDE
-    id 'idea'
     // Jetty
-    id "org.gretty" version "3.0.3"
+    id "org.gretty" version "3.0.5"
+    //To assemble war not jar
     id 'war'
 }
 
-application{
-    applicationName("app")
+group 'org.artbekk.webapplication'
+
+application {
+    applicationName("web")
 }
 
-dependencies{
-    compile "org.eclipse.jetty:jetty-server:9.4.25.v20191220"
+dependencies {
     compile "org.eclipse.jetty:jetty-servlet:9.4.25.v20191220"
     compile "org.eclipse.jetty:jetty-webapp:9.4.25.v20191220"
     compile "org.eclipse.jetty:jetty-annotations:9.4.25.v20191220"

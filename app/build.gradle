@@ -7,75 +7,38 @@ buildscript {
 
 plugins {
     id 'application'
-
-    // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
-
     //JaCoCo
     id 'jacoco'
-
-    //IDEA plugin for exporting libs/dependencies to IDE
-    id 'idea'
-
     //Flyway, migration tool
     id("org.flywaydb.flyway") version "7.3.0"
-
+    //Tool to check code style
     id "org.jlleitschuh.gradle.ktlint" version "9.4.1"
 }
 
-//Spek
+//JUnit plugin for Gradle (to work with Spek)
 apply plugin: "org.junit.platform.gradle.plugin"
-//Kotlin
-apply plugin: "kotlin"
-//JUnit plugin for Gradle
-apply plugin: "org.junit.platform.gradle.plugin"
-
+//Tool for checking code style
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
-group 'org.example'
-version '1.0'
+group 'org.artbekk.webapplication'
 
-application{
+application {
     applicationName("app")
     mainClassName = "Main"
 }
 
+repositories {
+    //Parser
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+}
+
 dependencies {
-    // Align versions of all Kotlin components
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-
-    // Use the Kotlin JDK 8 standard library.
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
-    //Logger
-    implementation "org.apache.logging.log4j:log4j-api:2.7"
-    implementation "org.apache.logging.log4j:log4j-core:2.7"
-
     //Parser
     implementation "org.jetbrains.kotlinx:kotlinx-cli:0.3"
-
     //h2db
     implementation "com.h2database:h2:1.4.200"
-
     //FlyWay
     implementation "org.flywaydb:flyway-core:7.3.0"
-
-    //Spek
-    testCompile 'org.jetbrains.spek:spek-api:1.1.5'
-    testCompile "org.jetbrains.kotlin:kotlin-test:1.4.20"
-    testCompile "org.jetbrains.kotlin:kotlin-reflect:1.4.20"
-    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.5'
-
-    //Mockito
-    testImplementation "org.mockito:mockito-core:2.+"
-
-    //JUnit
-    testImplementation(platform('org.junit:junit-bom:5.7.0'))
-    testImplementation "org.junit.jupiter:junit-jupiter"
-
-    //Javax
-    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
 }
 
 // To make JUnit use Spek as test engine
