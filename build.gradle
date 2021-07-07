@@ -1,7 +1,7 @@
 plugins {
     id 'base'
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.31'
 }
 
 allprojects {
@@ -16,7 +16,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven { url "https://kotlin.bintray.com/kotlinx" }
         //Mockito
         maven { url "https://dl.bintray.com/mockito/maven" }
         //Spek
@@ -26,10 +25,10 @@ allprojects {
     }
     dependencies {
         // Align versions of all Kotlin components
-        implementation group: 'org.jetbrains.kotlin', name: 'kotlin-bom', version: '1.5.0', ext: 'pom'
+        implementation platform('org.jetbrains.kotlin:kotlin-bom')
         //Logger
-        implementation 'org.apache.logging.log4j:log4j-api:2.7'
-        implementation 'org.apache.logging.log4j:log4j-core:2.7'
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
         // Use the Kotlin JDK 8 standard library.
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
         //Spek
