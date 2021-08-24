@@ -7,6 +7,7 @@ import org.eclipse.jetty.webapp.Configuration
 import org.eclipse.jetty.webapp.WebAppContext
 import servlets.EchoServlet
 
+/*
 class JettyServer {
     companion object {
         @JvmStatic
@@ -40,4 +41,4 @@ class JettyServer {
             server.join()
         }
     }
-}
+}*/
