@@ -1,20 +1,30 @@
-allprojects {
+subprojects {
+    buildscript {
+        repositories {
+            //Parser
+            maven { url = "https://kotlin.bintray.com/kotlinx" }
+
+            maven { url = "https://plugins.gradle.org/m2/" }
+
+            //Mockito
+            maven { url = "https://dl.bintray.com/mockito/maven" }
+
+            //Spek
+
+            maven { url "https://dl.bintray.com/jetbrains/spek" }
+
+            maven { url "https://plugins.gradle.org/m2/" }
+
+            mavenCentral()
+        }
+
+        dependencies {
+            classpath "org.jlleitschuh.gradle:ktlint-gradle:9.4.1"
+            classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+        }
+
+    }
     repositories {
-        //Parser
-        maven { url = uri("https://kotlin.bintray.com/kotlinx") }
-
-        maven { url "https://plugins.gradle.org/m2/" }
-
-        //Mockito
-        maven { url "https://dl.bintray.com/mockito/maven" }
-
-        //Spek
-        maven { url "http://dl.bintray.com/jetbrains/spek" }
-
-        maven { url "https://plugins.gradle.org/m2/" }
-
         mavenCentral()
-
-        jcenter()
     }
 }
